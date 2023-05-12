@@ -25,6 +25,18 @@ export type Input = {
   combo1: Combination;
   combo2: Combination;
   combo3: Combination;
-}
+};
+
+type FilterStartsWith<Set, Needle extends string> = Set extends `${Needle}${string}` ? Set : never;
+
+type FilterEndsWith<Set, Needle extends string> = Set extends `${string}${Needle}` ? Set : never;
+
+export type PosKey = FilterEndsWith<keyof Input, 'Pos'>;
+
+export type CircleKey = FilterEndsWith<keyof Input, 'Circles'>;
+
+export type DirKey = FilterEndsWith<keyof Input, 'Dir'>;
+
+export type ComboKey = FilterStartsWith<keyof Input, 'combo'>
 
 export type Solution = [number, number, number];

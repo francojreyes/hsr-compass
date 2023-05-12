@@ -3,7 +3,6 @@ import { Radio, RadioGroup } from '@mui/joy';
 
 const DirectionPicker: React.FC = () => {
   const [value, setValue] = React.useState(1);
-  console.log(value);
   return (
     <RadioGroup
       size='md'

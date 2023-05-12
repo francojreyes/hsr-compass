@@ -1,14 +1,12 @@
 import React from 'react';
 import { Card, Stack, Typography } from '@mui/joy';
 import CombinationPicker from './CombinationPicker';
-import { Combination, Input } from '../types';
+import { Combination, ComboKey, Input } from '../types';
 
 interface CombinationCardProps {
   input: Input;
   setInput: React.Dispatch<React.SetStateAction<Input>>;
 }
-
-type ComboKey = 'combo1' | 'combo2' | 'combo3';
 
 const CombinationCard: React.FC<CombinationCardProps> = ({ input, setInput }) => {
 

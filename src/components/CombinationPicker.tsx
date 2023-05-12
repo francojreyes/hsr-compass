@@ -9,8 +9,6 @@ interface CombinationPickerProps {
 }
 
 const CombinationPicker: React.FC<CombinationPickerProps> = ({ value, setValue }) => {
-  console.log(value);
-
   const handleClick = (ring: keyof Combination) => () => {
     // Don't allow deselecting the last one
     const numSelected = Object.values(value).filter(Boolean).length

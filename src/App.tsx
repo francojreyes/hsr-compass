@@ -33,15 +33,11 @@ function App() {
           <SolutionCard input={input} resetInput={resetInput}/>
           <CombinationCard input={input} setInput={setInput}/>
         </StyledGrid>
-        <StyledGrid xs={12} sm={6} lg={3}>
-          <RingCard ring='inner'/>
-        </StyledGrid>
-        <StyledGrid xs={12} sm={6} lg={3} >
-          <RingCard ring='middle'/>
-        </StyledGrid>
-        <StyledGrid xs={12} sm={6} lg={3}>
-          <RingCard ring='outer'/>
-        </StyledGrid>
+        {['inner', 'middle', 'outer'].map(ring => (
+          <StyledGrid key={'ring'} xs={12} sm={6} lg={3}>
+            <RingCard ring={ring} input={input} setInput={setInput}/>
+          </StyledGrid>
+        ))}
       </Grid>
     </CssBaseline>
   );
