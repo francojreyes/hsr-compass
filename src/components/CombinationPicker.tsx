@@ -4,18 +4,18 @@ import capitalise from '../utils/capitalise';
 import { Combination } from '../types';
 
 interface CombinationPickerProps {
-  value: Combination;
-  setValue: (combo: Combination) => void;
+  combo: Combination;
+  setCombo: (combo: Combination) => void;
 }
 
-const CombinationPicker: React.FC<CombinationPickerProps> = ({ value, setValue }) => {
+const CombinationPicker: React.FC<CombinationPickerProps> = ({ combo, setCombo }) => {
   const handleClick = (ring: keyof Combination) => () => {
     // Don't allow deselecting the last one
-    const numSelected = Object.values(value).filter(Boolean).length
-    if (numSelected <= 1 && value[ring]) {
+    const numSelected = Object.values(combo).filter(Boolean).length
+    if (numSelected <= 1 && combo[ring]) {
       return;
     }
-    setValue({...value, [ring]: !value[ring] });
+    setCombo({...combo, [ring]: !combo[ring] });
   }
 
   const rings: (keyof Combination)[] = ['inner', 'middle', 'outer'];
@@ -27,7 +27,7 @@ const CombinationPicker: React.FC<CombinationPickerProps> = ({ value, setValue }
           aria-label={`Rotates ${capitalise(ring)} Ring`}
           variant="solid"
           size='md'
-          checked={value[ring]}
+          checked={combo[ring]}
           slotProps={{ root: { onClick: handleClick(ring) } }}
         />
       ))}

@@ -23,8 +23,8 @@ const CombinationCard: React.FC<CombinationCardProps> = ({ input, setInput }) =>
           <Stack key={key} direction='row' spacing={2}>
             <Typography>Combination {i}</Typography>
             <CombinationPicker
-              value={input[key]}
-              setValue={(combo: Combination) => setCombo(key, combo)}
+              combo={input[key]}
+              setCombo={(combo: Combination) => setCombo(key, combo)}
             />
           </Stack>
         )
