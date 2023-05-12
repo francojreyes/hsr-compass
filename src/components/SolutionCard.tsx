@@ -25,7 +25,9 @@ const SolutionCard: React.FC<SolutionCardProps> = ({ input, resetInput }) => {
         <>
           <Typography fontWeight='bold' level='h5'>Solution</Typography>
           {solution.map((rotations, i) => (
-            <Typography>Combination {i + 1}: Rotate <Typography fontWeight='bold'>{rotations}</Typography> time(s)</Typography>
+            <Typography key={i}>
+              Combination {i + 1}: Rotate <Typography fontWeight='bold'>{rotations}</Typography> time(s)
+            </Typography>
           ))}
         </>
       )}

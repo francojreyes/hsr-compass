@@ -34,7 +34,7 @@ function App() {
           <CombinationCard input={input} setInput={setInput}/>
         </StyledGrid>
         {['inner', 'middle', 'outer'].map(ring => (
-          <StyledGrid key={'ring'} xs={12} sm={6} lg={3}>
+          <StyledGrid key={ring} xs={12} sm={6} lg={3}>
             <RingCard ring={ring} input={input} setInput={setInput}/>
           </StyledGrid>
         ))}
