@@ -18,7 +18,7 @@ const RingCard: React.FC<RingCardProps> = ({ ring, input, setInput }) => {
     setInput({ ...input, [posKey]: pos });
   }
 
-  const circleKey = ring + 'Circle' as CircleKey;
+  const circleKey = ring + 'Circles' as CircleKey;
   const setCircles = (circles: Circles) => {
     setInput({ ...input, [circleKey]: circles });
   }
@@ -36,10 +36,10 @@ const RingCard: React.FC<RingCardProps> = ({ ring, input, setInput }) => {
       <PositionPicker position={input[posKey]} setPosition={setPos}/>
       <Divider sx={{ mb: 2 }}/>
       <Typography gutterBottom fontWeight='bold'>How many circles?</Typography>
-      <CirclesPicker/>
+      <CirclesPicker circles={input[circleKey]} setCircles={setCircles}/>
       <Divider sx={{ my: 2 }}/>
       <Typography gutterBottom fontWeight='bold'>Rotation Direction</Typography>
-      <DirectionPicker/>
+      <DirectionPicker direction={input[dirKey]} setDirection={setDir}/>
     </Card>
   )
 }

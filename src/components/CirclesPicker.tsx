@@ -1,9 +1,13 @@
 import React from 'react';
 import { Radio, Stack } from '@mui/joy';
+import { Circles } from '../types';
 
-const CirclesPicker: React.FC = () => {
-  const [value, setValue] = React.useState(1);
-  console.log(value);
+interface CirclesPickerProps {
+  circles: Circles;
+  setCircles: (circles: Circles) => void;
+}
+
+const CirclesPicker: React.FC<CirclesPickerProps> = ({ circles, setCircles }) => {
   return (
     <Stack direction='row' spacing={3}>
       {[1, 2, 3, 4].map(i => (
@@ -13,8 +17,8 @@ const CirclesPicker: React.FC = () => {
           aria-label={`${i} Circle`}
           variant="solid"
           size='md'
-          checked={i <= value}
-          slotProps={{ root: { onClick: () => setValue(i) } }}
+          checked={i <= circles}
+          slotProps={{ root: { onClick: () => setCircles(i as Circles) } }}
         />
       ))}
     </Stack>

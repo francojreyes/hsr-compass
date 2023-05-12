@@ -1,13 +1,18 @@
 import React from 'react';
 import { Radio, RadioGroup } from '@mui/joy';
+import { Direction } from '../types';
 
-const DirectionPicker: React.FC = () => {
-  const [value, setValue] = React.useState(1);
+interface DirectionPickerProps {
+  direction: Direction;
+  setDirection: (dir: Direction) => void;
+}
+
+const DirectionPicker: React.FC<DirectionPickerProps> = ({ direction, setDirection }) => {
   return (
     <RadioGroup
       size='md'
-      value={value}
-      onChange={e => setValue(parseInt(e.target.value))}
+      value={direction}
+      onChange={e => setDirection(parseInt(e.target.value) as Direction)}
     >
       <Radio value='1' label='Clockwise' variant='solid'/>
       <Radio value='-1' label='Counter Clockwise' variant='solid'/>
