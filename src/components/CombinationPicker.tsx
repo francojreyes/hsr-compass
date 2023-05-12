@@ -12,6 +12,11 @@ const CombinationPicker: React.FC = () => {
   console.log(value);
 
   const handleClick = (ring: keyof Combination) => () => {
+    // Don't allow deselecting the last one
+    const numSelected = Object.values(value).filter(Boolean).length
+    if (numSelected <= 1 && value[ring]) {
+      return;
+    }
     setValue(oldValue => ({...oldValue, [ring]: !oldValue[ring] }));
   }
 
