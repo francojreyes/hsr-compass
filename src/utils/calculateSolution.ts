@@ -28,7 +28,7 @@ const calculateSolution = ({
   innerCircles, middleCircles, outerCircles,
   innerDir, middleDir, outerDir,
   combo1, combo2, combo3
-}: Input) => {
+}: Input): Solution => {
   const combos: CombinationList = [combo1, combo2, combo3];
   for (const solution of generateSolutions(MAX_ROTATION)) {
     const innerFinal = innerPos + sumRotations(solution, 'inner', combos) * innerDir * innerCircles * 60;
@@ -38,6 +38,7 @@ const calculateSolution = ({
       return solution;
     }
   }
+  return [-1, -1, -1];
 }
 
 export default calculateSolution;

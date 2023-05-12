@@ -3,12 +3,12 @@ import { Radio, Stack } from '@mui/joy';
 import capitalise from '../utils/capitalise';
 import { Combination } from '../types';
 
-const CombinationPicker: React.FC = () => {
-  const [value, setValue] = React.useState<Combination>({
-    inner: false,
-    middle: false,
-    outer: false
-  });
+interface CombinationPickerProps {
+  value: Combination;
+  setValue: (combo: Combination) => void;
+}
+
+const CombinationPicker: React.FC<CombinationPickerProps> = ({ value, setValue }) => {
   console.log(value);
 
   const handleClick = (ring: keyof Combination) => () => {
@@ -17,7 +17,7 @@ const CombinationPicker: React.FC = () => {
     if (numSelected <= 1 && value[ring]) {
       return;
     }
-    setValue(oldValue => ({...oldValue, [ring]: !oldValue[ring] }));
+    setValue({...value, [ring]: !value[ring] });
   }
 
   const rings: (keyof Combination)[] = ['inner', 'middle', 'outer'];

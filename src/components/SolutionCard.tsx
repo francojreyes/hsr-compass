@@ -1,15 +1,25 @@
 import React from 'react';
 import { Button, Card, Stack, Typography } from '@mui/joy';
-import { Solution } from '../types';
+import { Input, Solution } from '../types';
+import calculateSolution from '../utils/calculateSolution';
 
-const SolutionCard: React.FC = () => {
-  const [solution, setSolution] = React.useState<Solution | null>([0, 0, 4]);
+interface SolutionCardProps {
+  input: Input;
+  resetInput: () => void;
+}
+
+const SolutionCard: React.FC<SolutionCardProps> = ({ input, resetInput }) => {
+  const [solution, setSolution] = React.useState<Solution | null>(null);
+  const onSubmit = () => {
+    setSolution(calculateSolution(input));
+  }
+
   return (
     <Card sx={{ width: 325, display: 'flex', alignItems: 'center', rowGap: 2 }} variant='outlined'>
       <Stack direction='row' spacing={3}>
-        <Button>Solve</Button>
+        <Button onClick={onSubmit}>Solve</Button>
         <Button color='neutral' variant='soft'>Help</Button>
-        <Button color='neutral' variant='soft'>Reset</Button>
+        <Button color='neutral' variant='soft' onClick={resetInput}>Reset</Button>
       </Stack>
       {solution && (
         <>
