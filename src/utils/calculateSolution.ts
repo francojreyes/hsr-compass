@@ -1,22 +1,19 @@
 import { Combination, CombinationList, Input, Solution } from '../types';
 
-const MAX_ROTATION = 6;
+const MAX_ROTATION = 12;
 
 const sum = (nums: Array<number>): number => {
   return nums.reduce((prev, curr) => prev + curr, 0);
 }
 
-const generateSolutions = (n: number): Solution[] => {
-  const solutions: Solution[] = [];
-  for (let i = 0; i <= n; i++) {
-    for (let j = 0; j <= n; j++) {
-      for (let k = 0; k <= n; k++) {
-        solutions.push([i, j, k]);
+function *generateSolutions(max: number): Generator<Solution> {
+  for (let n = 0; n <= max; n++) {
+    for (let i = 0; i <= n; i++) {
+      for (let j = 0; j <= n - i; j++) {
+        yield [i, j, n - i - j];
       }
     }
   }
-  solutions.sort((a, b) => sum(a) - sum(b));
-  return solutions;
 }
 
 const sumRotations = (solution: Solution, ring: keyof Combination, combos: CombinationList) => {
