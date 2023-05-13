@@ -23,6 +23,10 @@ function *generateSolutions(): Generator<Solution> {
   }
 }
 
+/**
+ * Calculate the total number of times ring is rotated in the given solution
+ * according to the given combinations
+ */
 const sumRotations = (solution: Solution, ring: keyof Combination, combos: CombinationList) => {
   return sum(combos.map((combo, idx) => solution[idx] * (combo[ring] ? 1 : 0), 0));
 }
@@ -34,7 +38,6 @@ const calculateSolution = ({
   combo1, combo2, combo3
 }: Input): Solution => {
   const combos: CombinationList = [combo1, combo2, combo3];
-  console.log([...generateSolutions()])
   for (const solution of generateSolutions()) {
     const innerFinal = innerPos + sumRotations(solution, 'inner', combos) * innerDir * innerCircles * 60;
     const middleFinal = middlePos + sumRotations(solution, 'middle', combos) * middleDir * middleCircles * 60;
