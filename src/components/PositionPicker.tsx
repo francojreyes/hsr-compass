@@ -57,6 +57,11 @@ const PositionPicker: React.FC<PositionPickerProps> = ({ position, setPosition }
           actionBar: { style: { display: 'none' } },
           toolbar: { hidden: true }
         }}
+        sx={{
+          '& [aria-disabled]': {
+            opacity: 0.5
+          }
+        }}
         onChange={onChange}
       />
     </LocalizationProvider>
