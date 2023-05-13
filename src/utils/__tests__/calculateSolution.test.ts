@@ -26,6 +26,42 @@ describe('calculateSolutions() unit tests', () => {
     expect(calculateSolution(input)).toStrictEqual([-1, -1, -1]);
   })
 
+  it('solves the simple case', () => {
+    const input: Input = {
+      innerPos: 2, innerCircles: 2, innerDir: 1,
+      middlePos: 0, middleCircles: 2, middleDir: 1,
+      outerPos: 4, outerCircles: 2, outerDir: 1,
+      combo1: { inner: true, middle: false, outer: false },
+      combo2: { inner: false, middle: true, outer: false },
+      combo3: { inner: false, middle: false, outer: true },
+    }
+    expect(calculateSolution(input)).toStrictEqual([2, 0, 1]);
+  })
+
+  it('solves with one connected combination', () => {
+    const input: Input = {
+      innerPos: 3, innerCircles: 1, innerDir: 1,
+      middlePos: 4, middleCircles: 2, middleDir: -1,
+      outerPos: 4, outerCircles: 4, outerDir: 1,
+      combo1: { inner: true, middle: false, outer: false },
+      combo2: { inner: false, middle: true, outer: false },
+      combo3: { inner: true, middle: false, outer: true },
+    }
+    expect(calculateSolution(input)).toStrictEqual([1, 2, 2]);
+  })
+
+  it('solves with two connected combinations', () => {
+    const input: Input = {
+      innerPos: 2, innerCircles: 2, innerDir: -1,
+      middlePos: 4, middleCircles: 2, middleDir: 1,
+      outerPos: 0, outerCircles: 2, outerDir: -1,
+      combo1: { inner: true, middle: false, outer: false },
+      combo2: { inner: false, middle: true, outer: true },
+      combo3: { inner: true, middle: false, outer: true },
+    }
+    expect(calculateSolution(input)).toStrictEqual([2, 1, 2]);
+  })
+
   it('solves Timetable 2-4', () => {
     const input: Input = {
       innerPos: 0, innerCircles: 4, innerDir: 1,
