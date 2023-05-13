@@ -75,7 +75,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ open, setOpen }) => {
           <li>Select the initial position of the ring.</li>
           <li>Select how many circles are lit, which determines how much the ring rotates.</li>
           <li>Select the rotation direction, indicated by the 'arrows' on the ring.</li>
-          <li>Fill in the different ring combinations you can Switch between.</li>
+          <li>Fill in the different ring combinations you can Switch between (in any order).</li>
         </StyledOl>
         <Typography
           component="h3"
