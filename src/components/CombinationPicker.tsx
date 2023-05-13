@@ -1,5 +1,5 @@
 import React from 'react';
-import Stack from '@mui/joy/Stack';
+import RadioGroup from '@mui/joy/RadioGroup';
 import Radio from '@mui/joy/Radio';
 
 import { Combination } from '../types';
@@ -22,18 +22,21 @@ const CombinationPicker: React.FC<CombinationPickerProps> = ({ combo, setCombo }
 
   const rings: (keyof Combination)[] = ['inner', 'middle', 'outer'];
   return (
-    <Stack direction='row' spacing={3}>
-      {rings.map((ring) => (
+    <RadioGroup orientation='horizontal' size='md' value={undefined}>
+    {rings.map((ring) => (
         <Radio
           key={ring}
           aria-label={`Rotates ${capitalize(ring)} Ring`}
           variant="solid"
           size='md'
           checked={combo[ring]}
-          slotProps={{ root: { onClick: handleClick(ring) } }}
+          slotProps={{
+            root: { onClick: handleClick(ring) },
+            input: { type: 'checkbox' }
+          }}
         />
       ))}
-    </Stack>
+    </RadioGroup>
   )
 }
 

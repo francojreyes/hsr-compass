@@ -1,7 +1,6 @@
 import Radio from '@mui/joy/Radio';
-import Stack from '@mui/joy/Stack';
+import RadioGroup from '@mui/joy/RadioGroup';
 import React from 'react';
-
 
 import { Circles } from '../types';
 
@@ -12,19 +11,18 @@ interface CirclesPickerProps {
 
 const CirclesPicker: React.FC<CirclesPickerProps> = ({ circles, setCircles }) => {
   return (
-    <Stack direction='row' spacing={3}>
+    <RadioGroup orientation='horizontal' size='md' value={undefined}>
       {[1, 2, 3, 4].map(i => (
         <Radio
           key={i}
           value={i}
-          aria-label={`${i} Circle`}
+          aria-label={`${i} Circles`}
           variant="solid"
-          size='md'
           checked={i <= circles}
           slotProps={{ root: { onClick: () => setCircles(i as Circles) } }}
         />
       ))}
-    </Stack>
+    </RadioGroup>
   )
 }
 
