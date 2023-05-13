@@ -15,6 +15,10 @@ const SolutionCard: React.FC<SolutionCardProps> = ({ input, resetInput }) => {
 
   const handleSolve = () => setSolution(calculateSolution(input));
   const handleHelp = () => setShowHelp(true);
+  const handleReset = () => {
+    resetInput();
+    setSolution(null);
+  }
 
   return (
     <>
@@ -22,7 +26,7 @@ const SolutionCard: React.FC<SolutionCardProps> = ({ input, resetInput }) => {
         <Stack direction='row' spacing={3}>
           <Button onClick={handleSolve}>Solve</Button>
           <Button color='neutral' variant='soft' onClick={handleHelp}>Help</Button>
-          <Button color='neutral' variant='soft' onClick={resetInput}>Reset</Button>
+          <Button color='neutral' variant='soft' onClick={handleReset}>Reset</Button>
         </Stack>
         {solution && (
           <>
