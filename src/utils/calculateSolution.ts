@@ -1,23 +1,5 @@
 import { Combination, CombinationList, Input, Solution } from '../types';
-
-/**
- * Generator function that yields all possible solutions in order of least to
- * most total rotations. Maximum is [5, 5, 5] as 6 rotations is guaranteed no-op.
- */
-function *generateSolutions(): Generator<Solution> {
-  // Generate all solutions with a total of 0 and go up
-  for (let n = 0; n <= 15; n++) {
-    // Fix the first number i
-    for (let i = 0; i <= Math.min(n, 5); i++) {
-      // Partition the remaining value (n - i) into two
-      for (let j = 0; j <= Math.min(n - i, 5); j++) {
-        if (n - i - j <= 5) {
-          yield [i, j, n - i - j];
-        }
-      }
-    }
-  }
-}
+import generateSolutions from './generateSolutions';
 
 const sum = (nums: Array<number>): number => {
   return nums.reduce((prev, curr) => prev + curr, 0);
@@ -31,6 +13,10 @@ const sumRotations = (solution: Solution, ring: keyof Combination, combos: Combi
   return sum(combos.map((combo, idx) => solution[idx] * (combo[ring] ? 1 : 0), 0));
 }
 
+/**
+ * Try all possible solutions and return the first one that works.
+ * Returns [-1, -1, -1] if no solution is found.
+ */
 const calculateSolution = ({
   innerPos, middlePos, outerPos,
   innerCircles, middleCircles, outerCircles,

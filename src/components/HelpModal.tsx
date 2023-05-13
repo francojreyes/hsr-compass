@@ -1,12 +1,12 @@
 import React from 'react';
-import {
-  AspectRatio,
-  Modal,
-  ModalClose,
-  ModalDialog,
-  ModalOverflow, styled,
-  Typography
-} from '@mui/joy';
+import AspectRatio from '@mui/joy/AspectRatio';
+import Modal from '@mui/joy/Modal';
+import ModalClose from '@mui/joy/ModalClose';
+import ModalDialog from '@mui/joy/ModalDialog';
+import ModalOverflow from '@mui/joy/ModalOverflow';
+import { styled } from '@mui/joy/styles';
+import Typography from '@mui/joy/Typography';
+
 import usageDiagram from '../assets/help.png'
 
 const StyledOl = styled('ol')({

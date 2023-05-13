@@ -1,7 +1,9 @@
 import React from 'react';
-import { Radio, Stack } from '@mui/joy';
-import capitalise from '../utils/capitalise';
+import Stack from '@mui/joy/Stack';
+import Radio from '@mui/joy/Radio';
+
 import { Combination } from '../types';
+import capitalize from '@mui/material/utils/capitalize';
 
 interface CombinationPickerProps {
   combo: Combination;
@@ -24,7 +26,7 @@ const CombinationPicker: React.FC<CombinationPickerProps> = ({ combo, setCombo }
       {rings.map((ring) => (
         <Radio
           key={ring}
-          aria-label={`Rotates ${capitalise(ring)} Ring`}
+          aria-label={`Rotates ${capitalize(ring)} Ring`}
           variant="solid"
           size='md'
           checked={combo[ring]}

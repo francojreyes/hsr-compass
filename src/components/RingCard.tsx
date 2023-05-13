@@ -1,10 +1,13 @@
 import React from 'react';
-import { Card, Divider, Typography } from '@mui/joy';
+import capitalize from '@mui/material/utils/capitalize';
+import Card from '@mui/joy/Card';
+import Typography from '@mui/joy/Typography';
+import Divider from '@mui/joy/Divider';
+
+import { CircleKey, Circles, Direction, DirKey, Input, Position, PosKey } from '../types';
 import DirectionPicker from './DirectionPicker';
 import PositionPicker from './PositionPicker';
 import CirclesPicker from './CirclesPicker';
-import capitalise from '../utils/capitalise';
-import { CircleKey, Circles, Direction, DirKey, Input, Position, PosKey } from '../types';
 
 interface RingCardProps {
   ring: string;
@@ -30,7 +33,7 @@ const RingCard: React.FC<RingCardProps> = ({ ring, input, setInput }) => {
 
   return (
     <Card sx={{ width: 325, display: 'flex', alignItems: 'center' }} variant='outlined'>
-      <Typography fontWeight='bold' level='h5'>{capitalise(ring)} Ring</Typography>
+      <Typography fontWeight='bold' level='h5'>{capitalize(ring)} Ring</Typography>
       <Divider sx={{ my: 2 }}/>
       <Typography fontWeight='bold'>Initial Position</Typography>
       <PositionPicker position={input[posKey]} setPosition={setPos}/>

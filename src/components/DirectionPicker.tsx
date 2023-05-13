@@ -1,5 +1,7 @@
 import React from 'react';
-import { Radio, RadioGroup } from '@mui/joy';
+import Radio from '@mui/joy/Radio';
+import RadioGroup from '@mui/joy/RadioGroup';
+
 import { Direction } from '../types';
 
 interface DirectionPickerProps {

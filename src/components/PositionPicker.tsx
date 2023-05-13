@@ -1,6 +1,8 @@
 import React from 'react';
-import { LocalizationProvider, StaticTimePicker } from '@mui/x-date-pickers';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { StaticTimePicker } from '@mui/x-date-pickers/StaticTimePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+
 import { Position } from '../types';
 
 interface PositionPickerProps {

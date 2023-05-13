@@ -1,5 +1,9 @@
 import React from 'react';
-import { Button, Card, Stack, Typography } from '@mui/joy';
+import Button from '@mui/joy/Button';
+import Card from '@mui/joy/Card';
+import Stack from '@mui/joy/Stack';
+import Typography from '@mui/joy/Typography';
+
 import { Input, Solution } from '../types';
 import calculateSolution from '../utils/calculateSolution';
 import HelpModal from './HelpModal';

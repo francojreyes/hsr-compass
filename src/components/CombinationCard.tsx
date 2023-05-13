@@ -1,7 +1,10 @@
 import React from 'react';
-import { Card, Stack, Typography } from '@mui/joy';
-import CombinationPicker from './CombinationPicker';
+import Card from '@mui/joy/Card';
+import Stack from '@mui/joy/Stack';
+import Typography from '@mui/joy/Typography';
+
 import { Combination, ComboKey, Input } from '../types';
+import CombinationPicker from './CombinationPicker';
 
 interface CombinationCardProps {
   input: Input;
