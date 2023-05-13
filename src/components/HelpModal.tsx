@@ -1,15 +1,19 @@
 import React from 'react';
 import {
   AspectRatio,
-  List,
-  ListItem,
   Modal,
   ModalClose,
   ModalDialog,
-  ModalOverflow,
+  ModalOverflow, styled,
   Typography
 } from '@mui/joy';
 import usageDiagram from '../assets/help.png'
+
+const StyledOl = styled('ol')({
+  '& > li::marker': {
+    fontWeight: 'bold'
+  }
+})
 
 interface HelpModalProps {
   open: boolean;
@@ -67,12 +71,12 @@ const HelpModal: React.FC<HelpModalProps> = ({ open, setOpen }) => {
         <AspectRatio sx={{ width: '100%'}}>
           <img alt='usage diagram' src={usageDiagram}/>
         </AspectRatio>
-        <List>
-          <ListItem><b>(1)</b> - Select the initial position of the ring.</ListItem>
-          <ListItem><b>(2)</b> - Select how many circles are lit, which determines how much the ring rotates.</ListItem>
-          <ListItem><b>(3)</b> - Select the rotation direction, indicated by the 'arrows' on the ring.</ListItem>
-          <ListItem><b>(4)</b> - Fill in the different ring combinations you can Switch between.</ListItem>
-        </List>
+        <StyledOl>
+          <li>Select the initial position of the ring.</li>
+          <li>Select how many circles are lit, which determines how much the ring rotates.</li>
+          <li>Select the rotation direction, indicated by the 'arrows' on the ring.</li>
+          <li>Fill in the different ring combinations you can Switch between.</li>
+        </StyledOl>
         <Typography
           component="h3"
           level="h5"
