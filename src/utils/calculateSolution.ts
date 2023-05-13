@@ -1,16 +1,23 @@
 import { Combination, CombinationList, Input, Solution } from '../types';
 
-const MAX_ROTATION = 12;
-
 const sum = (nums: Array<number>): number => {
   return nums.reduce((prev, curr) => prev + curr, 0);
 }
 
-function *generateSolutions(max: number): Generator<Solution> {
-  for (let n = 0; n <= max; n++) {
-    for (let i = 0; i <= n; i++) {
-      for (let j = 0; j <= n - i; j++) {
-        yield [i, j, n - i - j];
+/**
+ * Generator function that yields all possible solutions in order of least to
+ * most total rotations. Maximum is [5, 5, 5] as 6 rotations is guaranteed no-op.
+ */
+function *generateSolutions(): Generator<Solution> {
+  // Generate all solutions with a total of 0 and go up
+  for (let n = 0; n <= 15; n++) {
+    // Fix the first number i
+    for (let i = 0; i <= Math.min(n, 5); i++) {
+      // Partition the remaining value (n - i) into two
+      for (let j = 0; j <= Math.min(n - i, 5); j++) {
+        if (n - i - j <= 5) {
+          yield [i, j, n - i - j];
+        }
       }
     }
   }
@@ -27,7 +34,8 @@ const calculateSolution = ({
   combo1, combo2, combo3
 }: Input): Solution => {
   const combos: CombinationList = [combo1, combo2, combo3];
-  for (const solution of generateSolutions(MAX_ROTATION)) {
+  console.log([...generateSolutions()])
+  for (const solution of generateSolutions()) {
     const innerFinal = innerPos + sumRotations(solution, 'inner', combos) * innerDir * innerCircles * 60;
     const middleFinal = middlePos + sumRotations(solution, 'middle', combos) * middleDir * middleCircles * 60;
     const outerFinal = outerPos + sumRotations(solution, 'outer', combos) * outerDir * outerCircles * 60;
