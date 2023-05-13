@@ -8,27 +8,26 @@ interface PositionPickerProps {
   setPosition: (pos: Position) => void;
 }
 
-const hourToPosition = (hour: number) => {
+const hourToPosition = (hour: number): Position => {
   switch (hour) {
     case 9:  return 0;
-    case 11: return 60;
-    case 1:  return 120;
-    case 3:  return 180;
-    case 5:  return 240;
-    case 7:  return 300;
+    case 11: return 1;
+    case 1:  return 2;
+    case 3:  return 3;
+    case 5:  return 4;
+    case 7:  return 5;
     default: throw new Error('Invalid hour');
   }
 }
 
-const positionToHour = (hours: number) => {
-  switch (hours) {
+const positionToHour = (pos: Position): number => {
+  switch (pos) {
     case 0:  return 9;
-    case 60: return 11;
-    case 120:  return 1;
-    case 180:  return 3;
-    case 240:  return 5;
-    case 300:  return 7;
-    default: throw new Error('Invalid hour');
+    case 1: return 11;
+    case 2:  return 1;
+    case 3:  return 3;
+    case 4:  return 5;
+    case 5:  return 7;
   }
 }
 
@@ -49,7 +48,7 @@ const PositionPicker: React.FC<PositionPickerProps> = ({ position, setPosition }
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <StaticTimePicker
-        shouldDisableTime={value => (value as Date).getHours() % 2 === 0}
+        shouldDisableTime={value => value.getHours() % 2 === 0}
         value={date}
         views={['hours']}
         slotProps={{

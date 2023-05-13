@@ -1,5 +1,5 @@
 
-export type Position = 0 | 60 | 120 | 180 | 240 | 300;
+export type Position = 0 | 1 | 2 | 3 | 4 | 5;
 
 export type Circles = 1 | 2 | 3 | 4;
 

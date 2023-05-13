@@ -1,9 +1,5 @@
 import { Combination, CombinationList, Input, Solution } from '../types';
 
-const sum = (nums: Array<number>): number => {
-  return nums.reduce((prev, curr) => prev + curr, 0);
-}
-
 /**
  * Generator function that yields all possible solutions in order of least to
  * most total rotations. Maximum is [5, 5, 5] as 6 rotations is guaranteed no-op.
@@ -23,6 +19,10 @@ function *generateSolutions(): Generator<Solution> {
   }
 }
 
+const sum = (nums: Array<number>): number => {
+  return nums.reduce((prev, curr) => prev + curr, 0);
+}
+
 /**
  * Calculate the total number of times ring is rotated in the given solution
  * according to the given combinations
@@ -39,10 +39,10 @@ const calculateSolution = ({
 }: Input): Solution => {
   const combos: CombinationList = [combo1, combo2, combo3];
   for (const solution of generateSolutions()) {
-    const innerFinal = innerPos + sumRotations(solution, 'inner', combos) * innerDir * innerCircles * 60;
-    const middleFinal = middlePos + sumRotations(solution, 'middle', combos) * middleDir * middleCircles * 60;
-    const outerFinal = outerPos + sumRotations(solution, 'outer', combos) * outerDir * outerCircles * 60;
-    if ([innerFinal, middleFinal, outerFinal].every(x => x % 360 === 0)) {
+    const innerFinal = innerPos + sumRotations(solution, 'inner', combos) * innerDir * innerCircles;
+    const middleFinal = middlePos + sumRotations(solution, 'middle', combos) * middleDir * middleCircles;
+    const outerFinal = outerPos + sumRotations(solution, 'outer', combos) * outerDir * outerCircles;
+    if ([innerFinal, middleFinal, outerFinal].every(x => x % 6 === 0)) {
       return solution;
     }
   }
