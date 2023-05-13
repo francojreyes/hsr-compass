@@ -56,6 +56,11 @@ const PositionPicker: React.FC<PositionPickerProps> = ({ position, setPosition }
           actionBar: { style: { display: 'none' } },
           toolbar: { hidden: true }
         }}
+        sx={{
+          ['& ' + [2, 4, 6, 8, 10, 12].map(n => `span[aria-label="${n} hours"]`).join(', ')]: {
+            display: 'none'
+          }
+        }}
         onChange={onChange}
       />
     </LocalizationProvider>
