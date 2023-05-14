@@ -11,7 +11,7 @@ interface CirclesPickerProps {
 
 const CirclesPicker: React.FC<CirclesPickerProps> = ({ circles, setCircles }) => {
   return (
-    <RadioGroup orientation='horizontal' size='md' value={undefined}>
+    <RadioGroup orientation='horizontal' size='md' value={circles}>
       {[1, 2, 3, 4].map(i => (
         <Radio
           key={i}
