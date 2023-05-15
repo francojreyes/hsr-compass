@@ -40,3 +40,5 @@ export type DirKey = FilterEndsWith<keyof Input, 'Dir'>;
 export type ComboKey = FilterStartsWith<keyof Input, 'combo'>
 
 export type Solution = [number, number, number];
+
+export type Constraint = [number, number[]];
