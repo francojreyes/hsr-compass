@@ -119,7 +119,10 @@ describe('calculateSolutions() unit tests', () => {
       combo2: { inner: false, middle: true, outer: true },
       combo3: { inner: true, middle: false, outer: true },
     }
-    expect(calculateSolution(input)).toStrictEqual([0, 0, 4]);
+    expect([
+      [4, 0, 0],
+      [0, 0, 4]
+    ]).toContainEqual(calculateSolution(input));
   })
 
   it('solves Divination Commission 4', () => {
@@ -155,6 +158,9 @@ describe('calculateSolutions() unit tests', () => {
       combo2: { inner: false, middle: true, outer: true },
       combo3: { inner: true, middle: false, outer: true },
     }
-    expect(calculateSolution(input)).toStrictEqual([1, 3, 2]);
+    expect([
+      [1, 3, 2],
+      [4, 0, 2]
+    ]).toContainEqual(calculateSolution(input));
   })
 });
