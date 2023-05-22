@@ -69,28 +69,20 @@ const solvePrime = (A: number[][], b: number[], n: number): number[][] => {
       continue;
     }
     for (let c = 0; c < cols; c++) {
-      const temp = A[r][c];
-      A[r][c] = A[solved][c];
-      A[solved][c] = temp;
+      [A[r][c], A[solved][c]] = [A[solved][c], A[r][c]]
     }
-    const temp = b[r];
-    b[r] = b[solved];
-    b[solved] = temp;
+    [b[r], b[solved]] = [b[solved], b[r]];
     r = solved
     solved += 1
     // invert row
     const inv = modularInverse(A[r][pivot], n)
-    for (let c = 0; c < cols; c++) {
-      A[r][c] = modPos(A[r][c] * inv, n);
-    }
+    A[r] = A[r].map(val => modPos(val * inv, n))
     b[r] = modPos(b[r] * inv, n);
     // subtract from other rows
     for (let other = 0; other < rows; other++) {
       if (other === r) continue;
       const mul = A[other][pivot];
-      for (let c = 0; c < cols; c++) {
-        A[other][c] = modPos(A[other][c] - mul * A[r][c], n);
-      }
+      A[other] = A[other].map((val, c) => modPos(val - mul * A[r][c], n))
       b[other] = modPos(b[other] - mul * b[r], n);
     }
   }
@@ -128,7 +120,6 @@ const solvePrime = (A: number[][], b: number[], n: number): number[][] => {
       assn[curVar] = b[r];
       for (const i of freeVars) {
         assn[curVar] = modPos(assn[curVar] - A[r][i] * assn[i], n);
-        assn[curVar] = modPos(assn[curVar], n);
       }
     }
     solns.push(assn);
@@ -263,9 +254,7 @@ const solveComposite = (A: number[][], b: number[], n: number): number[][] => {
     solnCons = []
     for (const old of oldSolns) {
       for (const cur of curSolns) {
-        const soln: Constraint[] = [...old];
-        soln.push([mod, cur]);
-        solnCons.push(soln);
+        solnCons.push([...old, [mod, cur]]);
       }
     }
   }
