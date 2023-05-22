@@ -3,6 +3,14 @@
 // https://www.reddit.com/r/HonkaiStarRail/comments/13g4pal/comment/jjzh2cz/?utm_source=share&utm_medium=web2x&context=3
 import { Constraint, Input, Solution } from '../types';
 
+/**
+ * Mod that always returns positive
+ */
+const modPos = (x: number, n: number): number => {
+  const mod = x % n;
+  return mod >= 0 ? Math.abs(mod) : mod + n;
+}
+
 // copied from SO
 const egcd = (a: number, b: number): [number, number, number] => {
   // returns Bezout coefficients directly
@@ -14,17 +22,17 @@ const egcd = (a: number, b: number): [number, number, number] => {
   }
 }
 
-const modinv = (n: number, mod: number): number => {
+const modularInverse = (n: number, mod: number): number => {
   const [g, x] = egcd(n, mod);
   if (g !== 1) {
     throw new Error('not relatively prime');
   }
-  return (x % mod + mod) % mod;
+  return modPos(x, mod);
 }
 
 const bezout = (a: number, b: number): [number, number] => {
   try {
-    const x = modinv(a, b);
+    const x = modularInverse(a, b);
     const y = Math.floor((1 - x * a) / b);
     return [x, y]
   } catch {
@@ -71,21 +79,19 @@ const solvePrime = (A: number[][], b: number[], n: number): number[][] => {
     r = solved
     solved += 1
     // invert row
-    const inv = modinv(A[r][pivot], n)
+    const inv = modularInverse(A[r][pivot], n)
     for (let c = 0; c < cols; c++) {
-      A[r][c] = (A[r][c] * inv) % n;
+      A[r][c] = modPos(A[r][c] * inv, n);
     }
-    b[r] = (b[r] * inv) % n;
+    b[r] = modPos(b[r] * inv, n);
     // subtract from other rows
     for (let other = 0; other < rows; other++) {
       if (other === r) continue;
       const mul = A[other][pivot];
       for (let c = 0; c < cols; c++) {
-        let v = (A[other][c] - mul * A[r][c]) % n;
-        v = (v + n) % n;
-        A[other][c] = v;
+        A[other][c] = modPos(A[other][c] - mul * A[r][c], n);
       }
-      b[other] = ((b[other] - mul * b[r]) % n + n) % n;
+      b[other] = modPos(b[other] - mul * b[r], n);
     }
   }
 
@@ -121,8 +127,8 @@ const solvePrime = (A: number[][], b: number[], n: number): number[][] => {
       }
       assn[curVar] = b[r];
       for (const i of freeVars) {
-        assn[curVar] = (assn[curVar] - A[r][i] * assn[i]) % n;
-        assn[curVar] = (assn[curVar] + n) % n;
+        assn[curVar] = modPos(assn[curVar] - A[r][i] * assn[i], n);
+        assn[curVar] = modPos(assn[curVar], n);
       }
     }
     solns.push(assn);
@@ -175,13 +181,13 @@ const solvePrimePow = (
     // in terms of p x', the RHS is then less by (coeff) * x1
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
-        b[r] = (b[r] - A[r][c] * x1[c] % mod) % mod
+        b[r] = modPos(b[r] - A[r][c] * x1[c], mod);
       }
       b[r] = Math.floor(b[r] / p);
     }
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
-        A[r][c] %= newmod;
+        A[r][c] = modPos(A[r][c], newmod);
       }
     }
 
@@ -250,8 +256,8 @@ const solveComposite = (A: number[][], b: number[], n: number): number[][] => {
   for (const [p, e] of primeFactors(n)) {
     const mod = Math.pow(p, e);
     // make copies bc modify
-    const tempA = A.map(row => row.map(val => val % mod));
-    const tempb = b.map(val => val % mod);
+    const tempA = A.map(row => row.map(val => modPos(val, mod)));
+    const tempb = b.map(val => modPos(val, mod));
     const oldSolns = solnCons;
     const curSolns = solvePrimePow(tempA, tempb, p, e);
     solnCons = []
@@ -274,11 +280,11 @@ const solveComposite = (A: number[][], b: number[], n: number): number[][] => {
       const [mod1, vals1] = cons.pop() as Constraint;
       const [m1, m2] = bezout(mod1, mod2);
       const mod = mod1 * mod2;
-      const c1 = (m2 * mod2 % mod + mod) % mod;
-      const c2 = (m1 * mod1 % mod + mod) % mod;
+      const c1 = modPos(m2 * mod2, mod);
+      const c2 = modPos(m1 * mod1, mod);
       const soln = new Array<number>(cols).fill(0);
       for (let c = 0; c < cols; c++) {
-        soln[c] = (c1 * vals1[c] + c2 * vals2[c]) % mod;
+        soln[c] = modPos(c1 * vals1[c] + c2 * vals2[c], mod);
       }
       cons.push([mod, soln]);
     }
@@ -303,18 +309,18 @@ const calculateSolution = ({
 }: Input): Solution => {
   // Convert to the form Ax = b (mod 6)
   const mod = 6;
-  const innerCoeff = (innerCircles * innerDir + mod) % mod;
-  const middleCoeff = (middleCircles * middleDir + mod) % mod;
-  const outerCoeff = (outerCircles * outerDir + mod) % mod;
+  const innerCoeff = modPos(innerCircles * innerDir, mod);
+  const middleCoeff = modPos(middleCircles * middleDir, mod);
+  const outerCoeff = modPos(outerCircles * outerDir, mod);
   const A = [
     [innerCoeff * +combo1.inner, innerCoeff * +combo2.inner, innerCoeff * +combo3.inner],
     [middleCoeff * +combo1.middle, middleCoeff * +combo2.middle, middleCoeff * +combo3.middle],
     [outerCoeff * +combo1.outer, outerCoeff * +combo2.outer, outerCoeff * +combo3.outer]
   ];
   const b = [
-    (-innerPos % mod + mod) % mod,
-    (-middlePos % mod + mod) % mod,
-    (-outerPos % mod + mod) % mod,
+    modPos(-innerPos, mod),
+    modPos(-middlePos, mod),
+    modPos(-outerPos, mod)
   ];
 
   const solns = solveComposite(A, b, mod) as Solution[];
