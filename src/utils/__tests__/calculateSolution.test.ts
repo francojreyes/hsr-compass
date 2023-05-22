@@ -14,7 +14,7 @@ describe('calculateSolutions() unit tests', () => {
     expect(calculateSolution(input)).toStrictEqual([0, 0, 0]);
   });
 
-  it('returns [-1, -1, -1] for no solution', () => {
+  it('returns [-1, -1, -1] for no solution because of odd pos even circles', () => {
     const input: Input = {
       innerPos: 1, middlePos: 0, outerPos: 0,
       innerCircles: 2, middleCircles: 1, outerCircles: 1,
@@ -22,6 +22,18 @@ describe('calculateSolutions() unit tests', () => {
       combo1: { inner: true, middle: true, outer: false },
       combo2: { inner: false, middle: true, outer: true },
       combo3: { inner: true, middle: false, outer: true },
+    }
+    expect(calculateSolution(input)).toStrictEqual([-1, -1, -1]);
+  })
+
+  it('returns [-1, -1, -1] for no solution because all rings connected', () => {
+    const input: Input = {
+      innerPos: 1, middlePos: 0, outerPos: 0,
+      innerCircles: 1, middleCircles: 1, outerCircles: 1,
+      innerDir: 1, middleDir: 1, outerDir: 1,
+      combo1: { inner: true, middle: true, outer: true },
+      combo2: { inner: true, middle: true, outer: true },
+      combo3: { inner: true, middle: true, outer: true },
     }
     expect(calculateSolution(input)).toStrictEqual([-1, -1, -1]);
   })
