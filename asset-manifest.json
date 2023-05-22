@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/hsr-compass/static/css/main.4490f932.css",
-    "main.js": "/hsr-compass/static/js/main.9695aba1.js",
+    "main.js": "/hsr-compass/static/js/main.14a231ca.js",
     "static/media/help.png": "/hsr-compass/static/media/help.7874e321210f55903609.png",
     "static/media/public-sans-all-400-normal.woff": "/hsr-compass/static/media/public-sans-all-400-normal.74e7e7d8ab558dd108a1.woff",
     "static/media/public-sans-latin-400-normal.woff2": "/hsr-compass/static/media/public-sans-latin-400-normal.4758638f2eeeaf0dd6c4.woff2",
@@ -9,10 +9,10 @@
     "static/media/public-sans-vietnamese-400-normal.woff2": "/hsr-compass/static/media/public-sans-vietnamese-400-normal.4490eed5a77c4164de3d.woff2",
     "index.html": "/hsr-compass/index.html",
     "main.4490f932.css.map": "/hsr-compass/static/css/main.4490f932.css.map",
-    "main.9695aba1.js.map": "/hsr-compass/static/js/main.9695aba1.js.map"
+    "main.14a231ca.js.map": "/hsr-compass/static/js/main.14a231ca.js.map"
   },
   "entrypoints": [
     "static/css/main.4490f932.css",
-    "static/js/main.9695aba1.js"
+    "static/js/main.14a231ca.js"
   ]
 }
